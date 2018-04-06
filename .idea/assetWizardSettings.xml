@@ -24,6 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="ffffff" />
+                                                <entry key="paddingPercent" value="20" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -34,7 +35,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/I:/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/device/ic_bluetooth_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/I:/AndroidStudio/plugins/android/lib/android.jar!/images/material_design_icons/hardware/ic_desktop_windows_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -44,8 +45,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="3d6fe3" />
-                                      <entry key="outputName" value="ic_bluetooth_item" />
+                                      <entry key="backgroundColor" value="28ffbe" />
+                                      <entry key="iconShape" value="CIRCLE" />
+                                      <entry key="outputName" value="ic_bluetooth_item_pc" />
                                     </map>
                                   </option>
                                 </PersistentState>

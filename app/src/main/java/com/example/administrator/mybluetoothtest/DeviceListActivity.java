@@ -2,29 +2,40 @@ package com.example.administrator.mybluetoothtest;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.SimpleAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 
 public class DeviceListActivity extends Activity {
 
+    private static Boolean FLAG_REPEAT = false;
     public static String EXTRA_DEVICE_ADDRESS = "设备地址"; // 返回时数据标签
     private BluetoothAdapter mBtAdapter; // 成员域
-    private ArrayAdapter<String> mPairedDevicesArrayAdapter;
-    private ArrayAdapter<String> mNewDevicesArrayAdapter;
+    private SimpleAdapter mPariedDviceSimpleAdapter;
+    private SimpleAdapter mNewDviceSimpleAdapter;
     private String TAG = "TAG";
     private Button scanButton;
+    private ArrayList<String> paried_advice_name = new ArrayList<>();
+    private ArrayList<String> new_advice_name = new ArrayList<>();
+    List<Map<String, Object>> paried_advice_listItems = new ArrayList<>();
+    List<Map<String, Object>> new_advice_listItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +43,43 @@ public class DeviceListActivity extends Activity {
         setContentView(R.layout.device_list);
         setResult(Activity.RESULT_CANCELED);// 设定默认返回值为取消
 
+        // 得到本地蓝牙句柄
+        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
+        // 得到已配对蓝牙设备列表
+        Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
+        //添加已配对设备到列表并显示
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                Map<String, Object> listItem = new HashMap<>();
+                int device_type = device.getBluetoothClass().getMajorDeviceClass();
+                switch (device_type) {
+                    case BluetoothClass.Device.Major.PHONE:
+                        listItem.put("img", R.mipmap.ic_bluetooth_item_phone);
+                        break;
+                    case BluetoothClass.Device.Major.COMPUTER:
+                        listItem.put("img", R.mipmap.ic_bluetooth_item_pc);
+                        break;
+                    default:
+                        listItem.put("img", R.mipmap.ic_bluetooth_item);
+                }
+                listItem.put("name", device.getName());
+                listItem.put("address", device.getAddress());
+                paried_advice_listItems.add(listItem);
+            }
+        } else {
+            String noDevices = "No devices have been paired";
+            Map<String, Object> listItem = new HashMap<>();
+            listItem.put("img", R.mipmap.ic_bluetooth_item);
+            listItem.put("name", noDevices);
+            listItem.put("address", noDevices);
+            paried_advice_listItems.add(listItem);
+        }
+        // 注册接收查找到设备action接收器
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        this.registerReceiver(mReceiver, filter);
+        // 注册查找结束action接收器
+        filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        this.registerReceiver(mReceiver, filter);
         /**开始服务和设备查找*/
         scanButton = findViewById(R.id.button_scan);
         scanButton.setOnClickListener(new View.OnClickListener() {
@@ -41,54 +89,33 @@ public class DeviceListActivity extends Activity {
                 }
                 mBtAdapter.startDiscovery();
                 scanButton.setText("正在搜寻蓝牙设备");
-                mNewDevicesArrayAdapter.clear();
-
-
-                
-
             }
         });
 
-        mPairedDevicesArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);   // 初使化设备存储数组
-        mNewDevicesArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+
+        mPariedDviceSimpleAdapter = new SimpleAdapter(this, paried_advice_listItems, R.layout.bluetootnadvice_item, new String[]{"img", "name"}, new int[]{R.id.bluetooth_item_image, R.id.bluetooth_item_name});
+        mNewDviceSimpleAdapter = new SimpleAdapter(this, new_advice_listItems, R.layout.bluetootnadvice_item, new String[]{"img", "name"}, new int[]{R.id.bluetooth_item_image, R.id.bluetooth_item_name});
+
         // 设置已配队设备列表
         ListView pairedListView = findViewById(R.id.paired_devices);
-        pairedListView.setAdapter(mPairedDevicesArrayAdapter);
+        pairedListView.setAdapter(mPariedDviceSimpleAdapter);
         pairedListView.setOnItemClickListener(mDeviceClickListener);
         // 设置新查找设备列表
         ListView newDevicesListView = findViewById(R.id.new_devices);
-        newDevicesListView.setAdapter(mNewDevicesArrayAdapter);
+        newDevicesListView.setAdapter(mNewDviceSimpleAdapter);
         newDevicesListView.setOnItemClickListener(mDeviceClickListener);
-        // 注册接收查找到设备action接收器
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        this.registerReceiver(mReceiver, filter);
-        // 注册查找结束action接收器
-        filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
-        this.registerReceiver(mReceiver, filter);
-        // 得到本地蓝牙句柄
-        mBtAdapter = BluetoothAdapter.getDefaultAdapter();
-        // 得到已配对蓝牙设备列表
-        Set<BluetoothDevice> pairedDevices = mBtAdapter.getBondedDevices();
-        //添加已配对设备到列表并显示
-        if (pairedDevices.size() > 0) {
-            findViewById(R.id.title_paired_devices).setVisibility(View.VISIBLE);
-            for (BluetoothDevice device : pairedDevices) {
-                mPairedDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-            }
-        } else {
-            String noDevices = "No devices have been paired";
-            mPairedDevicesArrayAdapter.add(noDevices);
-        }
+
+
     }
 
-    // 选择设备响应函数
     private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
-        public void onItemClick(AdapterView<?> av, View v, int arg2, long arg3) {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             // 准备连接设备，关闭服务查找
             mBtAdapter.cancelDiscovery();
             // 得到mac地址
-            String info = ((TextView) v).getText().toString();
-            String address = info.substring(info.length() - 17);
+            HashMap<String, String> map = (HashMap<String, String>) parent.getItemAtPosition(position);
+            String address = map.get("address");
             // 设置返回数据
             Intent intent = new Intent();
             intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
@@ -109,19 +136,49 @@ public class DeviceListActivity extends Activity {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // 如果是已配对的则略过，已得到显示，其余的在添加到列表中进行显示
                 if (device.getBondState() != BluetoothDevice.BOND_BONDED) {
-                        mNewDevicesArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                    for (int i = 0; i < mNewDviceSimpleAdapter.getCount(); i++) {
+                        Map<String, Object> listItem = (Map<String, Object>) mNewDviceSimpleAdapter.getItem(i);
+                        if (listItem.get("name").toString().equals(device.getName())) {
+                            FLAG_REPEAT = true;
+                            break;
+                        }
+                    }
+                    if (!FLAG_REPEAT) {
+                        Map<String, Object> newlistItem = new HashMap<>();
+                        int device_type = device.getBluetoothClass().getMajorDeviceClass();
+                        switch (device_type) {
+                            case BluetoothClass.Device.Major.PHONE:
+                                newlistItem.put("img", R.mipmap.ic_bluetooth_item_phone);
+                                break;
+                            case BluetoothClass.Device.Major.COMPUTER:
+                                newlistItem.put("img", R.mipmap.ic_bluetooth_item_pc);
+                                break;
+                            default:
+                                newlistItem.put("img", R.mipmap.ic_bluetooth_item);
+                        }
+                        newlistItem.put("name", device.getName());
+                        newlistItem.put("address", device.getAddress());
+                        new_advice_listItems.add(newlistItem);
+                        mNewDviceSimpleAdapter.notifyDataSetChanged();
+                        Log.d(TAG, device.getName());
+                    } else {
+                        FLAG_REPEAT = false;
+                    }
+
                 }
                 // 搜索完成action
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                if (mNewDevicesArrayAdapter.getCount() == 0) {
+                if (new_advice_name.size() == 0) {
                     String noDevices = "没有找到新设备";
-                    mNewDevicesArrayAdapter.add(noDevices);
+                    new_advice_name.add(noDevices);
                 }
                 scanButton.setText("搜寻结束，重新搜索");
-
             }
+
+
         }
     };
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
