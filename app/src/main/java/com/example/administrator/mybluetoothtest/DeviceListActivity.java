@@ -43,6 +43,9 @@ public class DeviceListActivity extends Activity {
                 scanButton.setText("正在搜寻蓝牙设备");
                 mNewDevicesArrayAdapter.clear();
 
+
+                
+
             }
         });
 
