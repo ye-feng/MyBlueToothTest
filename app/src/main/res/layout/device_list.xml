@@ -52,7 +52,6 @@
             android:id="@+id/button_cancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="OnCancel"
             android:text="取消" />
     </LinearLayout>
 

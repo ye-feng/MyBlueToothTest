@@ -29,49 +29,44 @@ import java.io.OutputStream;
 
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity {
+public class BlueToothActivity extends AppCompatActivity {
 
     private EditText edit0;
     private ScrollView sv;
     private TextView dis;
+    private Button linechart;
     private BluetoothAdapter mBluetoothAdapter;
-    private final int REQUEST_ENABLE_BT = 1;
     private BluetoothSocket _socket;
     private final int REQUEST_CONNECT_DEVICE = 1;
     private BluetoothDevice _device = null;
     private InputStream is;
     private boolean bThread = false;
     private boolean bRun = true;
-
-    private String fmsg="";
-    private String smsg="";
+    private String fmsg = "";
+    private String smsg = "";
     private final static String MY_UUID = "00001101-0000-1000-8000-00805F9B34FB";
     private String TAG = "TAG";
     private String filename = "";
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
+        setContentView(R.layout.activity_tr);
         edit0 = findViewById(R.id.Edit0);   //得到输入框句柄
         sv = findViewById(R.id.ScrollView01);  //得到翻页句柄
         dis = findViewById(R.id.in);      //得到数据显示句柄
-
+        linechart=findViewById(R.id.button_linechart);
         //如果打开本地蓝牙设备不成功，提示信息，结束程序
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBluetoothAdapter == null) {
-            Toast.makeText(this, "无法打开手机蓝牙，请确认手机是否有蓝牙功能！", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
-        //如果蓝牙未开启，则提示开启蓝牙
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivity(enableBtIntent);
-        }
+//        if (mBluetoothAdapter == null) {
+//            Toast.makeText(this, "无法打开手机蓝牙，请确认手机是否有蓝牙功能！", Toast.LENGTH_LONG).show();
+//            finish();
+//            return;
+//        }
+//        //如果蓝牙未开启，则提示开启蓝牙
+//        if (!mBluetoothAdapter.isEnabled()) {
+//            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+//            startActivity(enableBtIntent);
+//        }
     }
 
     //注册发送按键点击事件
@@ -108,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
@@ -120,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                             .getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
                     // 得到蓝牙设备句柄
                     _device = mBluetoothAdapter.getRemoteDevice(address);
-
                     // 用服务号得到socket
                     try {
                         _socket = _device.createRfcommSocketToServiceRecord(UUID.fromString(MY_UUID));
@@ -144,7 +137,6 @@ public class MainActivity extends AppCompatActivity {
 
                         return;
                     }
-
                     //打开接收线程
                     try {
                         is = _socket.getInputStream();   //得到蓝牙数据输入流
@@ -152,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(this, "接收数据失败！", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if (bThread == false) {
+                    if (!bThread) {
                         ReadThread.start();
                         bThread = true;
                     } else {
@@ -218,8 +210,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-
-
     public void onConnectButtonClicked(View view) {
         if (!mBluetoothAdapter.isEnabled()) {  //如果蓝牙服务不可用则提示
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
@@ -236,23 +226,22 @@ public class MainActivity extends AppCompatActivity {
         } else {
             //关闭连接socket
             try {
-
                 is.close();
                 _socket.close();
                 _socket = null;
                 bRun = false;
                 btn.setText("连接");
             } catch (IOException e) {
-                Log.d(TAG,"关闭连接socket失败");
+                Log.d(TAG, "关闭连接socket失败");
             }
         }
     }
 
     public void onSaveButtonClicked(View view) {
 //显示对话框输入文件名
-        LayoutInflater factory = LayoutInflater.from(MainActivity.this);  //图层模板生成器句柄
+        LayoutInflater factory = LayoutInflater.from(BlueToothActivity.this);  //图层模板生成器句柄
         final View DialogView = factory.inflate(R.layout.sname, null);  //用sname.xml模板生成视图模板
-        new AlertDialog.Builder(MainActivity.this)
+        new AlertDialog.Builder(BlueToothActivity.this)
                 .setTitle("文件名")
                 .setView(DialogView)   //设置视图模板
                 .setPositiveButton("确定",
@@ -261,7 +250,6 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 EditText text1 = DialogView.findViewById(R.id.sname);  //得到文件名输入框句柄
                                 filename = text1.getText().toString();  //得到文件名
-
                                 try {
                                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {  //如果SD卡已准备好
 
@@ -273,16 +261,14 @@ public class MainActivity extends AppCompatActivity {
                                         FileOutputStream stream = new FileOutputStream(saveFile);  //打开文件输入流
                                         stream.write(fmsg.getBytes());
                                         stream.close();
-                                        Toast.makeText(MainActivity.this, "存储成功！", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(BlueToothActivity.this, "存储成功！", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        Toast.makeText(MainActivity.this, "没有存储卡！", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(BlueToothActivity.this, "没有存储卡！", Toast.LENGTH_LONG).show();
                                     }
 
                                 } catch (IOException e) {
                                     return;
                                 }
-
-
                             }
                         })
                 .setNegativeButton("取消",   //取消按键响应函数,直接退出对话框不做任何处理
@@ -311,5 +297,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onDestroy: socket关闭失败");
             }
         super.onDestroy();
+    }
+
+    public void onlinechartbuttonclick(View view) {
+ //       Intent intent=new Intent(this,LineChartActivity.class);
+  //      startActivity(intent);
     }
 }

@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class DeviceListActivity extends Activity {
+public class DeviceListActivity extends BaseActivity {
 
     private static Boolean FLAG_REPEAT = false;
     public static String EXTRA_DEVICE_ADDRESS = "设备地址"; // 返回时数据标签
@@ -32,17 +33,52 @@ public class DeviceListActivity extends Activity {
     private SimpleAdapter mNewDviceSimpleAdapter;
     private String TAG = "TAG";
     private Button scanButton;
+    private Button cancleButton;
     private ArrayList<String> paried_advice_name = new ArrayList<>();
     private ArrayList<String> new_advice_name = new ArrayList<>();
     List<Map<String, Object>> paried_advice_listItems = new ArrayList<>();
     List<Map<String, Object>> new_advice_listItems = new ArrayList<>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.device_list);
-        setResult(Activity.RESULT_CANCELED);// 设定默认返回值为取消
 
+    /**
+     * 初始化布局文件
+     **/
+    @Override
+    protected int getLayoutId() {
+        return R.layout.device_list;
+    }
+
+    /**
+     * 初始化控件
+     **/
+    @Override
+    protected void findView() {
+        scanButton = findViewById(R.id.button_scan);
+        cancleButton = findViewById(R.id.button_cancel);
+    }
+
+    /**
+     * 初始化View
+     **/
+    @Override
+    protected void initView() {
+
+    }
+
+    /**
+     * 设置监听事件
+     **/
+    @Override
+    protected void setOnClick() {
+        scanButton.setOnClickListener(this);
+        cancleButton.setOnClickListener(this);
+    }
+
+    /**
+     * 初始化数据
+     **/
+    @Override
+    protected void initData() {
         // 得到本地蓝牙句柄
         mBtAdapter = BluetoothAdapter.getDefaultAdapter();
         // 得到已配对蓝牙设备列表
@@ -81,21 +117,10 @@ public class DeviceListActivity extends Activity {
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         this.registerReceiver(mReceiver, filter);
         /**开始服务和设备查找*/
-        scanButton = findViewById(R.id.button_scan);
-        scanButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                if (mBtAdapter.isDiscovering()) {// 关闭再进行的服务查找
-                    mBtAdapter.cancelDiscovery();
-                }
-                mBtAdapter.startDiscovery();
-                scanButton.setText("正在搜寻蓝牙设备");
-            }
-        });
 
 
         mPariedDviceSimpleAdapter = new SimpleAdapter(this, paried_advice_listItems, R.layout.bluetootnadvice_item, new String[]{"img", "name"}, new int[]{R.id.bluetooth_item_image, R.id.bluetooth_item_name});
         mNewDviceSimpleAdapter = new SimpleAdapter(this, new_advice_listItems, R.layout.bluetootnadvice_item, new String[]{"img", "name"}, new int[]{R.id.bluetooth_item_image, R.id.bluetooth_item_name});
-
         // 设置已配队设备列表
         ListView pairedListView = findViewById(R.id.paired_devices);
         pairedListView.setAdapter(mPariedDviceSimpleAdapter);
@@ -104,9 +129,27 @@ public class DeviceListActivity extends Activity {
         ListView newDevicesListView = findViewById(R.id.new_devices);
         newDevicesListView.setAdapter(mNewDviceSimpleAdapter);
         newDevicesListView.setOnItemClickListener(mDeviceClickListener);
+    }
 
+    @Override
+    protected void clickEvent(View v) {
+        switch (v.getId()) {
+            case R.id.button_scan:
+                if (mBtAdapter.isDiscovering()) {// 关闭再进行的服务查找
+                    mBtAdapter.cancelDiscovery();
+                }
+                mBtAdapter.startDiscovery();
+                scanButton.setText("正在搜寻蓝牙设备");
+                break;
+            case R.id.button_cancel:
+                finish();
+                break;
+            default:
+                break;
+        }
 
     }
+
 
     private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -116,11 +159,16 @@ public class DeviceListActivity extends Activity {
             // 得到mac地址
             HashMap<String, String> map = (HashMap<String, String>) parent.getItemAtPosition(position);
             String address = map.get("address");
+            SharedPreferences mSharedPreferences = DeviceListActivity.this.getSharedPreferences("BULETOOTH_ADDRESS", Context.MODE_PRIVATE);
+            SharedPreferences.Editor edit = mSharedPreferences.edit();
+            edit.putString("connected_address", address);
+            edit.commit();
+            showToast("存储成功：" + address);
             // 设置返回数据
-            Intent intent = new Intent();
-            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
-            // 设置返回值并结束程序
-            setResult(Activity.RESULT_OK, intent);
+//            Intent intent = new Intent();
+//            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
+//            // 设置返回值并结束程序
+//            setResult(Activity.RESULT_OK, intent);
             finish();
         }
     };
@@ -192,8 +240,5 @@ public class DeviceListActivity extends Activity {
         this.unregisterReceiver(mReceiver);
     }
 
-    public void OnCancel(View v) {
-        finish();
-    }
 
 }
