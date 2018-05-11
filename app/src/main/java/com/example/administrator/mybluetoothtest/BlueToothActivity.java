@@ -102,7 +102,6 @@ public class BlueToothActivity extends AppCompatActivity {
         }
 
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {

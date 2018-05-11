@@ -1,14 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="面团拉伸阻力曲线图"
+            android:textSize="20dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_gravity="center_horizontal"/>
+        <TextView
+            android:id="@+id/tv"
+            android:text="实时拉伸阻力值："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
+
     <lecho.lib.hellocharts.view.LineChartView
         android:id="@+id/test_linechartview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <TextView
-        android:id="@+id/tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
+</LinearLayout>
+
+
+
+
+
 
 </android.support.constraint.ConstraintLayout>

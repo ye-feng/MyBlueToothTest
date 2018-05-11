@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.BLUETOOTH"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
         android:allowBackup="true"
@@ -29,6 +31,10 @@
         <activity android:name=".AboutActivity"/>
         <activity android:name=".TestInformationActivity"/>
         <activity android:name=".TestActivity"/>
+        <activity android:name=".TestReport" />
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".HistoryData"/>
+
 
 
     </application>

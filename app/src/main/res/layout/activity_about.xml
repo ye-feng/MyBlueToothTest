@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary"
         android:scaleType="centerCrop"
-        android:src="@mipmap/shu_3" />
+        android:src="@mipmap/back2" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,21 +17,13 @@
         android:orientation="vertical"
         android:weightSum="4">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="198dp"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="2"
+            android:src="@mipmap/logo" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="必读项目说明"
-                android:textColor="#ffffff"
-                android:textSize="28sp" />
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,61 +33,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="464dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="- 添加中文详细规范注释"
+                android:text="       杭州佩克昂科技有限公司坐落于杭州市余杭区良渚大学科技园，是一 家依托于浙江大学现代光学仪器国家重点实验室，光电信息检测技术研究所和浙江大学国际设计研究院等专业机构共同孵化的 高科技企业，专业从事将前沿科研成果转化为分析仪器的研发、生产、销售工作。 "
                 android:textColor="#ffffff"
                 android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- 暂时删减部分不常用的控件/功能"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- 开源库支持：hellocharts-android"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- 开源库开发者：lecho"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- 本项目开发者：iamxiarui"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- 个人博客：www.iamxiarui.com"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="- 如有疑问或不同意见，欢迎交流"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-
         </LinearLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

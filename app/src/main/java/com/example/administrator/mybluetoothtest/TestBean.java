@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class TestBean {
+    private int test_number;
     private String sample_name;
     private String evaluation_methods;
     private String person;
@@ -13,9 +14,19 @@ public class TestBean {
     private int water;
     private int dough_time;
     private Date test_date;
+    private float Rm;
+    private float R50;
+    private float E;
+    private float Power;
+    private float Pull_rate;
     private List<Float> test_datas=new ArrayList<>();
 
-    public TestBean() {
+    public int getTest_number() {
+        return test_number;
+    }
+
+    public void setTest_number(int test_number) {
+        this.test_number = test_number;
     }
 
     public String getSample_name() {
@@ -82,6 +93,46 @@ public class TestBean {
         this.test_date = test_date;
     }
 
+    public float getRm() {
+        return Rm;
+    }
+
+    public void setRm(float rm) {
+        Rm = rm;
+    }
+
+    public float getR50() {
+        return R50;
+    }
+
+    public void setR50(float r50) {
+        R50 = r50;
+    }
+
+    public float getE() {
+        return E;
+    }
+
+    public void setE(float e) {
+        E = e;
+    }
+
+    public float getPower() {
+        return Power;
+    }
+
+    public void setPower(float power) {
+        Power = power;
+    }
+
+    public float getPull_rate() {
+        return Pull_rate;
+    }
+
+    public void setPull_rate(float pull_rate) {
+        Pull_rate = pull_rate;
+    }
+
     public List<Float> getTest_datas() {
         return test_datas;
     }
@@ -93,7 +144,8 @@ public class TestBean {
     @Override
     public String toString() {
         return "TestBean{" +
-                "sample_name='" + sample_name + '\'' +
+                "test_number=" + test_number +
+                ", sample_name='" + sample_name + '\'' +
                 ", evaluation_methods='" + evaluation_methods + '\'' +
                 ", person='" + person + '\'' +
                 ", wet=" + wet +
@@ -101,6 +153,11 @@ public class TestBean {
                 ", water=" + water +
                 ", dough_time=" + dough_time +
                 ", test_date=" + test_date +
+                ", Rm=" + Rm +
+                ", R50=" + R50 +
+                ", E=" + E +
+                ", Power=" + Power +
+                ", Pull_rate=" + Pull_rate +
                 ", test_datas=" + test_datas +
                 '}';
     }

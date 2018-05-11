@@ -75,7 +75,7 @@ public class MainAcitvity extends BaseActivity {
                 skipAnotherActivity(this, TestInformationActivity.class);
                 break;
             case R.id.oldtests:
-                showToast("暂未添加此功能");
+                skipAnotherActivity(this, HistoryActivity.class);
                 break;
             case R.id.debug:
                 showToast("暂未添加此功能");

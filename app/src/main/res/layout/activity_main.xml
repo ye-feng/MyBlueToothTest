@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/back2" />
+
     <LinearLayout
-        android:layout_width="592dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
             android:layout_weight="2"
-            android:src="@mipmap/img_main" />
+            android:src="@mipmap/lashengyi" />
 
         <LinearLayout
             android:layout_width="0dp"
