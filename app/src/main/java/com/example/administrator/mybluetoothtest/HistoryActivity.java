@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
-
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import java.io.File;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +56,6 @@ public class HistoryActivity extends BaseActivity {
         files = dataDir.listFiles();
         if (files.length > 0) {
             int datanum = 0;
-
             map = new HashMap<>();
             for (File file : files) {
                 datanum++;
@@ -68,7 +64,6 @@ public class HistoryActivity extends BaseActivity {
                 map.put("name", file.getName());
                 time = file.lastModified();
                 Date date = new Date(time);
-
                 map.put("time",  new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss").format(date) );
                 list.add(map);
             }
@@ -81,9 +76,7 @@ public class HistoryActivity extends BaseActivity {
             showToast("没有历史实验数据");
             finish();
         }
-
     }
-
 
     /**
      * 设置监听事件
@@ -91,7 +84,6 @@ public class HistoryActivity extends BaseActivity {
     @Override
     protected void setOnClick() {
         btn_close.setOnClickListener(this);
-
         lv_history.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -105,16 +97,12 @@ public class HistoryActivity extends BaseActivity {
             }
         });
     }
-
     /**
      * 初始化数据
      **/
     @Override
     protected void initData() {
-
-
     }
-
     @Override
     protected void clickEvent(View v) {
         switch (v.getId()) {
@@ -124,7 +112,5 @@ public class HistoryActivity extends BaseActivity {
             default:
                 break;
         }
-
     }
-
 }

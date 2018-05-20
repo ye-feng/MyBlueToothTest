@@ -41,7 +41,7 @@ public class HistoryData extends BaseActivity {
     private JSONObject jsonObject;
     private String readLine;
     private JSONArray json_test_datas;
-    private List<Float> test_datas=new ArrayList<>();
+    private List<Float> test_datas = new ArrayList<>();
     private MyLineChart myLineChart;
 
     /**
@@ -79,7 +79,6 @@ public class HistoryData extends BaseActivity {
      **/
     @Override
     protected void initView() {
-
     }
 
     /**
@@ -97,13 +96,13 @@ public class HistoryData extends BaseActivity {
     protected void initData() {
         Intent intent = getIntent();
         filePath = intent.getStringExtra("filePath");
-        File file=new File(filePath);
+        File file = new File(filePath);
         try {
-            FileInputStream fileInputStream=new FileInputStream(file);
-            BufferedReader br=new BufferedReader(new InputStreamReader(fileInputStream));
+            FileInputStream fileInputStream = new FileInputStream(file);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
             try {
-                 readLine = br.readLine();
-                Log.d("TAG",readLine);
+                readLine = br.readLine();
+                Log.d("TAG", readLine);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -111,16 +110,12 @@ public class HistoryData extends BaseActivity {
             e.printStackTrace();
         }
         jsonObject = (JSONObject) JSON.parse(readLine);
-        json_test_datas= jsonObject.getJSONArray("test_datas");
-
-        for(int i=1;i<json_test_datas.size();i++)
-        {
-            Float f=json_test_datas.getFloat(i);
+        json_test_datas = jsonObject.getJSONArray("test_datas");
+        for (int i = 1; i < json_test_datas.size(); i++) {
+            Float f = json_test_datas.getFloat(i);
             test_datas.add(f);
         }
-
-        Log.d("TAG","test_datas"+test_datas.toString());
-
+        Log.d("TAG", "test_datas" + test_datas.toString());
         myLineChart = new MyLineChart();//得到一个MyLineChart实例
         myLineChart.initView(history_data_linechartview);
         myLineChart.setAxis();          //设置坐标轴
@@ -129,7 +124,6 @@ public class HistoryData extends BaseActivity {
         myLineChart.setPointsValues(test_datas);
         myLineChart.setLinesDatas();
         myLineChart.startLineChartView();
-
         history_data_Rm.setText(jsonObject.getString("rm"));
         history_data_R50.setText(jsonObject.getString("r50"));
         history_data_E.setText(jsonObject.getString("e"));

@@ -1,10 +1,7 @@
 package com.example.administrator.mybluetoothtest;
-
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 public class MainAcitvity extends BaseActivity {
     private Button btn_NewTest;
     private Button btn_OldTests;
@@ -19,7 +16,6 @@ public class MainAcitvity extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_main;
     }
-
     /**
      * 初始化控件
      **/
@@ -32,7 +28,6 @@ public class MainAcitvity extends BaseActivity {
         btn_About = findViewById(R.id.about);
         btn_Other = findViewById(R.id.other);
     }
-
     /**
      * 初始化View
      **/
@@ -40,7 +35,6 @@ public class MainAcitvity extends BaseActivity {
     protected void initView() {
 
     }
-
     /**
      * 设置监听事件
      **/
@@ -53,7 +47,6 @@ public class MainAcitvity extends BaseActivity {
         btn_About.setOnClickListener(this);
         btn_Other.setOnClickListener(this);
     }
-
     /**
      * 初始化蓝牙
      **/
@@ -61,7 +54,6 @@ public class MainAcitvity extends BaseActivity {
     protected void initData() {
 
     }
-
     /**
      * Called when a view has been clicked.
      *
@@ -93,5 +85,4 @@ public class MainAcitvity extends BaseActivity {
                 break;
         }
     }
-
 }

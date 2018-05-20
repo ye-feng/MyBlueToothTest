@@ -1,6 +1,5 @@
 package com.example.administrator.mybluetoothtest;
 
-import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
@@ -9,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,9 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
 public class DeviceListActivity extends BaseActivity {
-
     private static Boolean FLAG_REPEAT = false;
     public static String EXTRA_DEVICE_ADDRESS = "设备地址"; // 返回时数据标签
     private BluetoothAdapter mBtAdapter; // 成员域
@@ -38,7 +34,6 @@ public class DeviceListActivity extends BaseActivity {
     private ArrayList<String> new_advice_name = new ArrayList<>();
     List<Map<String, Object>> paried_advice_listItems = new ArrayList<>();
     List<Map<String, Object>> new_advice_listItems = new ArrayList<>();
-
 
     /**
      * 初始化布局文件
@@ -117,8 +112,6 @@ public class DeviceListActivity extends BaseActivity {
         filter = new IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         this.registerReceiver(mReceiver, filter);
         /**开始服务和设备查找*/
-
-
         mPariedDviceSimpleAdapter = new SimpleAdapter(this, paried_advice_listItems, R.layout.bluetootnadvice_item, new String[]{"img", "name"}, new int[]{R.id.bluetooth_item_image, R.id.bluetooth_item_name});
         mNewDviceSimpleAdapter = new SimpleAdapter(this, new_advice_listItems, R.layout.bluetootnadvice_item, new String[]{"img", "name"}, new int[]{R.id.bluetooth_item_image, R.id.bluetooth_item_name});
         // 设置已配队设备列表
@@ -147,9 +140,7 @@ public class DeviceListActivity extends BaseActivity {
             default:
                 break;
         }
-
     }
-
 
     private AdapterView.OnItemClickListener mDeviceClickListener = new AdapterView.OnItemClickListener() {
         @Override
@@ -172,7 +163,6 @@ public class DeviceListActivity extends BaseActivity {
             finish();
         }
     };
-
     // 查找到设备和搜索完成action监听器
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
@@ -212,7 +202,6 @@ public class DeviceListActivity extends BaseActivity {
                     } else {
                         FLAG_REPEAT = false;
                     }
-
                 }
                 // 搜索完成action
             } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
@@ -222,23 +211,17 @@ public class DeviceListActivity extends BaseActivity {
                 }
                 scanButton.setText("搜寻结束，重新搜索");
             }
-
-
         }
     };
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         // 关闭服务查找
         if (mBtAdapter != null) {
             mBtAdapter.cancelDiscovery();
         }
-
         // 注销action接收器
         this.unregisterReceiver(mReceiver);
     }
-
-
 }

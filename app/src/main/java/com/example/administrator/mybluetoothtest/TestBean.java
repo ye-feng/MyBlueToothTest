@@ -20,27 +20,21 @@ public class TestBean {
     private float Power;
     private float Pull_rate;
     private List<Float> test_datas=new ArrayList<>();
-
     public int getTest_number() {
         return test_number;
     }
-
     public void setTest_number(int test_number) {
         this.test_number = test_number;
     }
-
     public String getSample_name() {
         return sample_name;
     }
-
     public void setSample_name(String sample_name) {
         this.sample_name = sample_name;
     }
-
     public String getEvaluation_methods() {
         return evaluation_methods;
     }
-
     public void setEvaluation_methods(String evaluation_methods) {
         this.evaluation_methods = evaluation_methods;
     }

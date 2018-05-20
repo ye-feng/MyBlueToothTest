@@ -2,18 +2,15 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:orientation="vertical">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -21,135 +18,107 @@
                 android:text="面团拉伸阻力曲线图"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20dp" />
-
             <lecho.lib.hellocharts.view.LineChartView
                 android:id="@+id/history_data_linechartview"
                 android:layout_width="match_parent"
                 android:layout_height="260dp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.2"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="最大拉伸阻力" />
-
                     <TextView
                         android:id="@+id/history_data_Rm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="" />
-
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.2"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="拉伸阻力R50" />
-
                     <TextView
                         android:id="@+id/history_data_R50"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="" />
-
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="延伸性E" />
-
                     <TextView
                         android:id="@+id/history_data_E"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="" />
-
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="能量" />
-
                     <TextView
                         android:id="@+id/history_data_Power"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="" />
-
                 </LinearLayout>
-
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="拉力比" />
-
                     <TextView
                         android:id="@+id/history_data_Pull_rate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="" />
-
                 </LinearLayout>
-
             </LinearLayout>
-
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="实验编号：" />
-
                 <TextView
                     android:id="@+id/history_data_sample_number"
                     android:layout_width="0dp"
@@ -157,19 +126,16 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="样品名称：" />
-
                 <TextView
                     android:id="@+id/history_data_sample_name"
                     android:layout_width="0dp"
@@ -177,19 +143,16 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="操作人员:" />
-
                 <TextView
                     android:id="@+id/history_data_person"
                     android:layout_width="0dp"
@@ -197,19 +160,16 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="试验方法：" />
-
                 <TextView
                     android:id="@+id/history_data_evaluation_methods"
                     android:layout_width="0dp"
@@ -217,19 +177,16 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1.2"
                     android:text="发酵时间(min)：" />
-
                 <TextView
                     android:id="@+id/history_data_dough_time"
                     android:layout_width="0dp"
@@ -237,13 +194,11 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -257,13 +212,11 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -277,19 +230,16 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="加水量(ml)：" />
-
                 <TextView
                     android:id="@+id/history_data_water"
                     android:layout_width="0dp"
@@ -297,7 +247,6 @@
                     android:layout_weight="1"
                     android:text="" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -312,6 +261,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-
 </android.support.constraint.ConstraintLayout>

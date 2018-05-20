@@ -8,9 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class TestInformationActivity extends BaseActivity {
     private Button btn_Start;
     private Button btn_Return;
@@ -54,7 +51,6 @@ public class TestInformationActivity extends BaseActivity {
      **/
     @Override
     protected void initView() {
-
     }
 
     /**

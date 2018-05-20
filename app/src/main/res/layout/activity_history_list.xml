@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -10,7 +9,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:background="@android:color/holo_green_dark"
             android:text="历史实验数据"
             android:textSize="20dp"
@@ -51,8 +49,6 @@
             android:id="@+id/btn_close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:text="关闭" />
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>

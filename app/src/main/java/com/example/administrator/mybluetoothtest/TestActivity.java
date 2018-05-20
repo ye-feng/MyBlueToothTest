@@ -1,35 +1,24 @@
 package com.example.administrator.mybluetoothtest;
 
-import android.app.AlertDialog;
+
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.alibaba.fastjson.JSON;
-
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-
 import lecho.lib.hellocharts.view.LineChartView;
 
 
@@ -53,7 +42,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
             myLineChart.setPointsValues(test_datas);
             myLineChart.setLinesDatas();
             myLineChart.startLineChartView();
-            tv.setText("实时拉伸阻力值："+smsg.toString());   //显示数据
+            tv.setText("实时拉伸阻力值：" + smsg.toString());   //显示数据
             super.handleMessage(msg);
         }
     };
@@ -109,7 +98,6 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
      **/
     @Override
     protected void initData() {
-
         SharedPreferences mSharedPreferences = this.getSharedPreferences("BULETOOTH_ADDRESS", MODE_PRIVATE);
         String address = mSharedPreferences.getString("connected_address", "FAIL");
         showToast(address);
@@ -158,7 +146,6 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
-
     @Override
     protected void clickEvent(View v) {
         switch (v.getId()) {
@@ -169,7 +156,6 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
-
 
     private Float smsg;
     private Intent intent;
@@ -189,19 +175,16 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                     while (true) {
                         num = inputStream.read(buffer);         //读入数据
                         Log.d("TAG", "num:" + num);
-
                         if (num == 4) {
                             int data = 0;
-
                             data = buffer[0] * 1000;
                             data = data + buffer[1] * 100;
                             data = data + buffer[2] * 10;
                             data = data + buffer[3];
-
                             Log.d("TAG", "data:" + (float) (data / 1.25));
                             if (data > 5) {
                                 test_datas.add((float) (data / 1.25));
-                                smsg = (float)(data/1.25);   //写入接收缓存
+                                smsg = (float) (data / 1.25);   //写入接收缓存
                                 Log.d("TAG", "s:" + smsg);
                                 //   if (inputStream.available() == 0) break;  //短时间没有数据才跳出进行显示
                                 //发送显示消息，进行显示刷新
@@ -225,8 +208,6 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                         finish();
                         break;
                     }
-
-
                 } catch (IOException e) {
                 }
             }
@@ -253,7 +234,7 @@ public class TestActivity extends BaseActivity implements View.OnClickListener {
                 Rm = f;
             }
         }
-        float R50=0;
+        float R50 = 0;
         if (test_datas.size() > 50) {
             R50 = test_datas.get(50);//面团拉伸50mm时的拉伸阻力
         }
